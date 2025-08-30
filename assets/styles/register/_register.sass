@@ -1,0 +1,90 @@
+.registration-page
+    padding: 0
+
+    .container
+        max-width: 100%
+
+        .row
+            display: flex
+
+        // Partie gauche
+        #registration-container
+            width: 50%
+            padding: 8% 5% 5% 5%
+
+            #required-field
+                color: rgba(184, 46, 16, 1)
+                font-size: 10px
+
+            label.required:after
+                content: " *"
+                color: rgba(184, 46, 16, 1)
+
+            .form-control
+                width: 50%
+
+            #eye
+                margin-bottom: 2%
+
+                .eye-on,
+                .eye-off
+                    margin-right: 1%
+                    cursor: pointer
+
+            .form-check-label.required
+                margin-left: 1%
+
+            .form-footer
+                display: flex
+                flex-direction: column
+                align-items: flex-start
+                margin-top: 2%
+
+                .rgpd-link
+                    color: #007bff
+                    text-decoration: none
+                    margin-bottom: 0.5rem
+
+                .btn-primary
+                    margin-top: 2%
+                    width: auto
+
+        // Partie droite
+        .image-container
+            padding: 0
+
+            .img-fluid
+                height: 100%
+////////////////////////////////////////
+
+/* RESPONSIVE */
+/* Version Tablette */
+@media screen and ( max-width: 1000px )
+    .registration-page
+
+    .container
+
+        .row
+
+            #registration-container
+                padding: 15% 5% 5% 5%
+
+                .form-control
+                    width: 75%
+////////////////////////////////////////
+
+/* Version Mobile */
+@media screen and ( max-width: 769px )
+    .registration-page
+
+    .container
+
+        .row
+
+            #registration-container
+                width: 100%
+                padding: 20% 5% 5% 5%
+
+    .image-container
+        display: none
+////////////////////////////////////////
