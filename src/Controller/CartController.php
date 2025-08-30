@@ -21,11 +21,11 @@ class CartController extends AbstractController
     }
 
     #[Route('/profile/cart/addFormation/{id}', name: 'app_cart_add_formation')]
-    public function addFormation(CartService $cartService): Response
+    public function addFormation(int $id, CartService $cartService): Response
     {
         $cartService->addFormation($id);
-
         return $this->redirectToRoute('app_cart');
+
     }
 
     #[Route('/profile/cart/add/{id}', name: 'app_cart_add')]
