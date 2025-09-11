@@ -29,4 +29,10 @@ jobs:
           npm run build
 
       - name: Deploy to Deploy Now
-        uses: ionos-deploy-now/github-action@v2
+        uses: ionos-deploy-now/project-action@v1
+        with:
+          api-key: ${{ secrets.IONOS_API_KEY }}
+          service-host: api-eu.ionos.space
+          project-id: 288b9b0c-7396-4f9f-b18d-caae3bbb6abf
+          branch-id: main
+          action: dispatch-deployments
