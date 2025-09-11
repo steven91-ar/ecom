@@ -23,8 +23,9 @@ if (pathName === "/login") {
             eyeOn.style.display = "block";
             displayEye.style.display = "block";
             noDisplay.style.display = "none";
->>>>>>> dea9f20 (Initial commit)
+            inputPassword.type = "password";
         });
+    }
 } else if (pathName === "/register" || pathName === "/reset-password/reset") {
     const eyeOn = document.querySelector('.eye-on');
     const eyeOff = document.querySelector('.eye-off');
