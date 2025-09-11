@@ -1,0 +1,12 @@
+deploy-now:
+  persist:
+    - var/log
+    - var/cache
+  run:
+    before:
+      - echo "APP_ENV=prod" >> .env.local
+      - echo "APP_SECRET=ta_clé_prod" >> .env.local
+      - echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env.local
+      - php bin/console doctrine:migrations:migrate --no-interaction
+      - php bin/console cache:clear
+      - php bin/console assets:install public
