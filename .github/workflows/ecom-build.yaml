@@ -52,12 +52,9 @@ jobs:
 
       - name: Run composer install
 # uncomment the following lines if you want to add environment variables for this step
-        env:
-          APP_ENV: prod
-          APP_SECRET: ${{ secrets.APP_SECRET }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          MAILER_DSN: ${{ secrets.MAILER_DSN }}
-          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+#        env:
+#          MY_ENV_VAR: value-for-my-env-var
+#          MY_SECRET_ENV_VAR: ${{ secrets.MY_SECRET }} # here you can find information how to create secrets: https://docs.github.com/en/actions/security-guides/encrypted-secrets
         run: composer install --optimize-autoloader --no-dev
 
 # Please do not touch the following action
@@ -66,7 +63,7 @@ jobs:
         with:
           api-key: ${{ secrets.IONOS_API_KEY }}
           service-host: api-eu.ionos.space
-          project-id: 288b9b0c-7396-4f9f-b18d-caae3bbb6abf
+          project-id: a96ea6c7-bb75-41a3-8a9e-c0c22372d255
           branch-id: ${{ inputs.branch-id }}
           version: ${{ github.sha }}
           folder: ${{ env.DEPLOYMENT_FOLDER }}
