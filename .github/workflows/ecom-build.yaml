@@ -1,3 +1,6 @@
+# To better understand this file read this:
+# https://docs.ionos.space/docs/github-actions-customization/
+
 name: "Deploy Now: Execute Build"
 
 on:
@@ -14,12 +17,14 @@ env:
   DEPLOYMENT_FOLDER: ./
 
 jobs:
+# Please do not rename this job
   build-project:
     name: build ecom
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
+      # if you add permissions here this needs to be done in the ecom-orchestration.yaml as well
     steps:
       - name: checkout
         uses: actions/checkout@v4
@@ -45,29 +50,22 @@ jobs:
           php-version: '8.3'
           tools: composer:2
 
+      - name: Run composer install
+# uncomment the following lines if you want to add environment variables for this step
+#        env:
+#          MY_ENV_VAR: value-for-my-env-var
+#          MY_SECRET_ENV_VAR: ${{ secrets.MY_SECRET }} # here you can find information how to create secrets: https://docs.github.com/en/actions/security-guides/encrypted-secrets
+        run: composer install --optimize-autoloader --no-dev
+
+# Please do not touch the following action
       - name: Store deployment content
         uses: ionos-deploy-now/artifact-action@v1
         with:
           api-key: ${{ secrets.IONOS_API_KEY }}
           service-host: api-eu.ionos.space
-          project-id: a96ea6c7-bb75-41a3-8a9e-c0c22372d255
+          project-id: f88fb7e5-f76f-4f32-8d76-3d9d3c59f315
           branch-id: ${{ inputs.branch-id }}
           version: ${{ github.sha }}
           folder: ${{ env.DEPLOYMENT_FOLDER }}
           config-file: .deploy-now/ecom/config.yaml
           action: upload
-
-      - name: Create .env file from secrets
-        run: |
-          echo "APP_ENV=prod" >> .env
-          echo "APP_SECRET=${{ secrets.APP_SECRET }}" >> .env
-          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
-          echo "MAILER_DSN=${{ secrets.MAILER_DSN }}" >> .env
-          echo "ADMIN_EMAIL=${{ secrets.ADMIN_EMAIL }}" >> .env
-          echo "STRIPE_SECRET_KEY_DEV=${{ secrets.STRIPE_SECRET_KEY_DEV }}" >> .env
-          echo "STRIPE_SECRET_KEY_PROD=${{ secrets.STRIPE_SECRET_KEY_PROD }}" >> .env
-
-      - name: Run composer install
-        run: |
-          composer install --optimize-autoloader --no-dev
-          php bin/console cache:clear --no-warmup --no-debug
