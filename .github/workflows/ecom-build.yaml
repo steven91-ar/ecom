@@ -45,18 +45,6 @@ jobs:
           php-version: '8.3'
           tools: composer:2
 
-      - name: Store deployment content
-        uses: ionos-deploy-now/artifact-action@v1
-        with:
-          api-key: ${{ secrets.IONOS_API_KEY }}
-          service-host: api-eu.ionos.space
-          project-id: a96ea6c7-bb75-41a3-8a9e-c0c22372d255
-          branch-id: ${{ inputs.branch-id }}
-          version: ${{ github.sha }}
-          folder: ${{ env.DEPLOYMENT_FOLDER }}
-          config-file: .deploy-now/ecom/config.yaml
-          action: upload
-
       - name: Create .env file from secrets
         run: |
           echo "APP_ENV=prod" >> .env
@@ -71,3 +59,16 @@ jobs:
         run: |
           composer install --optimize-autoloader --no-dev
           php bin/console cache:clear --no-warmup --no-debug
+          
+      - name: Store deployment content
+        uses: ionos-deploy-now/artifact-action@v1
+        with:
+          api-key: ${{ secrets.IONOS_API_KEY }}
+          service-host: api-eu.ionos.space
+          project-id: a96ea6c7-bb75-41a3-8a9e-c0c22372d255
+          branch-id: ${{ inputs.branch-id }}
+          version: ${{ github.sha }}
+          folder: ${{ env.DEPLOYMENT_FOLDER }}
+          config-file: .deploy-now/ecom/config.yaml
+          action: upload
+
